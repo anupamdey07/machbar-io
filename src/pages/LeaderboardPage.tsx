@@ -120,7 +120,7 @@ export default function LeaderboardPage() {
                                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-background-light overflow-hidden z-50 p-2"
+                                        className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-background-light overflow-hidden z-50 p-2"
                                     >
                                         <div className="max-h-64 overflow-y-auto custom-scrollbar">
                                             {categories.map((cat) => (
