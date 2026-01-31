@@ -8,6 +8,9 @@ I've successfully created the **AI Marketplace MVP** based on your PRD. Here's w
 
 ### 🧠 Our Philosophy: Marketplace-first
 > "Buy, sell, and discover smart hardware designs and components — a marketplace built by makers, for makers."
+
+**Problem-led / pain point**
+> "Building smart hardware is too hard, too expensive, and too lonely. machbar.io brings together the tools, talent, and community to make it doable."
 ```
 ai-marketplace/
 ├── 📄 Configuration Files
