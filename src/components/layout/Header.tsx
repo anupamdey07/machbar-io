@@ -9,9 +9,42 @@ export default function Header() {
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
-        if (searchQuery.trim()) {
-            navigate(`/explore?search=${encodeURIComponent(searchQuery)}`);
+        const query = searchQuery.trim().toLowerCase();
+        if (!query) return;
+
+        // Check for direct page matches
+        const pageMatch = navItems.find(item =>
+            item.label.toLowerCase() === query ||
+            item.path.slice(1).toLowerCase() === query
+        );
+
+        if (pageMatch) {
+            navigate(pageMatch.path);
+            setSearchQuery('');
+            return;
         }
+
+        // Secondary pages matches
+        const secondaryPages = [
+            { label: 'About', path: '/about' },
+            { label: 'Trust', path: '/trust' },
+            { label: 'Cart', path: '/cart' },
+            { label: 'Profile', path: '/profile/pollen' },
+        ];
+
+        const secondaryMatch = secondaryPages.find(page =>
+            page.label.toLowerCase() === query ||
+            page.path.slice(1).toLowerCase() === query
+        );
+
+        if (secondaryMatch) {
+            navigate(secondaryMatch.path);
+            setSearchQuery('');
+            return;
+        }
+
+        navigate(`/explore?search=${encodeURIComponent(searchQuery)}`);
+        setSearchQuery('');
     };
 
     const navItems = [
