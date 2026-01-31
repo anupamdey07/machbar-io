@@ -42,6 +42,7 @@ export interface User {
     id: string;
     name: string;
     username: string; // Handle for URL (e.g., @pollen)
+    instagram?: string; // Instagram handle (e.g., pollen_robotics)
     bio?: string;
     location?: string;
     website?: string;

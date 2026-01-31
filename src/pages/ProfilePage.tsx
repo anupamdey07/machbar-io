@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useProductStore } from '@/store/useProductStore';
 import ProductCard from '@/components/common/ProductCard';
+import Badge from '@/components/common/Badge';
 
 export default function ProfilePage() {
     const { userId } = useParams(); // Should match route param
@@ -69,14 +70,21 @@ export default function ProfilePage() {
 
                     <h1 className="text-3xl md:text-4xl font-bold font-heading text-primary mb-2 flex items-center gap-3">
                         {creator.name}
-                        {creator.badge === 'Maker' ? (
-                            <span className="text-xl" title="Verified Maker">🏆</span>
-                        ) : creator.badge === 'Contributor' ? (
-                            <span className="text-xl" title="Top Contributor">⚡</span>
-                        ) : null}
+                        <Badge
+                            type={creator.badge}
+                            label={creator.badge === 'Contributor' ? 'Contributed' : undefined}
+                            className="text-xs py-1 px-3 uppercase tracking-wider"
+                        />
                     </h1>
 
-                    <p className="text-charcoal/60 font-mono text-sm mb-4">@{creator.username || creator.id}</p>
+                    <a
+                        href={creator.instagram ? `https://instagram.com/${creator.instagram}` : creator.website || '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-charcoal/60 font-mono text-sm mb-4 hover:text-accent transition-colors"
+                    >
+                        @{creator.instagram || creator.username || creator.id}
+                    </a>
 
                     {creator.bio && (
                         <p className="max-w-xl text-charcoal/80 text-lg mb-6 leading-relaxed">
@@ -96,7 +104,7 @@ export default function ProfilePage() {
                             </a>
                         )}
                         <div className="flex items-center gap-2">
-                            <span>📅</span> Joined {new Date().getFullYear()}
+                            <span>📅</span> Joined {creator.id.startsWith('real') ? (creator.id === 'pollen' ? 2023 : 2024) : 2026}
                         </div>
                     </div>
 
