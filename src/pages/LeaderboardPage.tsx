@@ -7,7 +7,7 @@ export default function LeaderboardPage() {
     const navigate = useNavigate();
     const { products, upvoteProduct } = useProductStore();
     const [timeframe, setTimeframe] = useState<'This Week' | 'All Time'>('This Week');
-    const [selectedCategory, setSelectedCategory] = useState<string>('All Categories');
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [isTimeDropdownOpen, setIsTimeDropdownOpen] = useState(false);
     const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
     const timeDropdownRef = useRef<HTMLDivElement>(null);
@@ -40,10 +40,23 @@ export default function LeaderboardPage() {
         'Voice Assistants'
     ];
 
+    const toggleCategory = (cat: string) => {
+        if (cat === 'All Categories') {
+            setSelectedCategories([]);
+        } else {
+            setSelectedCategories(prev => {
+                const newSelection = prev.includes(cat)
+                    ? prev.filter(c => c !== cat)
+                    : [...prev, cat];
+                return newSelection;
+            });
+        }
+    };
+
     const filteredProducts = products.filter(p =>
-        selectedCategory === 'All Categories' ||
-        p.category === selectedCategory ||
-        p.subCategory === selectedCategory
+        selectedCategories.length === 0 ||
+        selectedCategories.includes(p.category) ||
+        (p.subCategory && selectedCategories.includes(p.subCategory))
     );
 
     return (
@@ -111,7 +124,11 @@ export default function LeaderboardPage() {
                                 }}
                                 className="flex items-center gap-2 px-6 py-3 bg-white rounded-2xl border border-background-light text-sm font-bold text-primary hover:border-primary/20 transition-all shadow-sm active:scale-95"
                             >
-                                {selectedCategory}
+                                {selectedCategories.length === 0
+                                    ? 'All Categories'
+                                    : selectedCategories.length === 1
+                                        ? selectedCategories[0]
+                                        : `${selectedCategories.length} Categories`}
                                 <svg className={`w-4 h-4 transition-transform ${isCategoryDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
                                 </svg>
@@ -126,18 +143,26 @@ export default function LeaderboardPage() {
                                         className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-background-light overflow-hidden z-50 p-2"
                                     >
                                         <div className="max-h-64 overflow-y-auto custom-scrollbar">
-                                            {filterOptions.map((cat) => (
-                                                <button
-                                                    key={cat}
-                                                    onClick={() => {
-                                                        setSelectedCategory(cat);
-                                                        setIsCategoryDropdownOpen(false);
-                                                    }}
-                                                    className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-colors mb-1 last:mb-0 ${selectedCategory === cat ? 'bg-primary text-secondary' : 'text-charcoal/60 hover:bg-background-light'}`}
-                                                >
-                                                    {cat}
-                                                </button>
-                                            ))}
+                                            {filterOptions.map((cat) => {
+                                                const isSelected = cat === 'All Categories'
+                                                    ? selectedCategories.length === 0
+                                                    : selectedCategories.includes(cat);
+
+                                                return (
+                                                    <button
+                                                        key={cat}
+                                                        onClick={() => toggleCategory(cat)}
+                                                        className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-colors mb-1 last:mb-0 flex items-center justify-between ${isSelected ? 'bg-primary text-secondary' : 'text-charcoal/60 hover:bg-background-light'}`}
+                                                    >
+                                                        <span>{cat}</span>
+                                                        {isSelected && (
+                                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                        )}
+                                                    </button>
+                                                );
+                                            })}
                                         </div>
                                     </motion.div>
                                 )}
