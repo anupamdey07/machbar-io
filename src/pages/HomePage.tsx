@@ -91,12 +91,12 @@ export default function HomePage() {
                 <CategoryScroll />
             </div>
 
-            {/* Start Here: Beginner-Friendly Picks */}
+            {/* Featured: Beginner-Friendly Picks */}
             <section className="py-20 bg-secondary">
                 <div className="container-custom">
                     <div className="text-center mb-16">
                         <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-primary">
-                            Start Here: Beginner-Friendly Picks
+                            Featured: Beginner-Friendly Picks
                         </h2>
                         <p className="text-charcoal/70 text-lg max-w-2xl mx-auto">
                             Our most-vetted picks for first-time makers. No degree required.
@@ -123,7 +123,7 @@ export default function HomePage() {
                                 transition={{ duration: 0.6 }}
                             >
                                 <div className="flex gap-2 mb-4">
-                                    <Badge type="featured" label="Top Recommendation" />
+                                    <Badge type="featured" label="Featured" />
                                     <span className="px-3 py-1 bg-primary text-secondary rounded-lg text-xs font-bold">Beginner</span>
                                 </div>
 
