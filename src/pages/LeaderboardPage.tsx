@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useProductStore } from '@/store/useProductStore';
@@ -11,6 +11,23 @@ export default function LeaderboardPage() {
     const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'All Categories'>('All Categories');
     const [isTimeDropdownOpen, setIsTimeDropdownOpen] = useState(false);
     const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+    const timeDropdownRef = useRef<HTMLDivElement>(null);
+    const categoryDropdownRef = useRef<HTMLDivElement>(null);
+
+    // Close dropdowns when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (timeDropdownRef.current && !timeDropdownRef.current.contains(event.target as Node)) {
+                setIsTimeDropdownOpen(false);
+            }
+            if (categoryDropdownRef.current && !categoryDropdownRef.current.contains(event.target as Node)) {
+                setIsCategoryDropdownOpen(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const categories: (ProductCategory | 'All Categories')[] = [
         'All Categories',
@@ -43,7 +60,7 @@ export default function LeaderboardPage() {
 
                     <div className="flex gap-4">
                         {/* Timeframe Dropdown */}
-                        <div className="relative">
+                        <div className="relative" ref={timeDropdownRef}>
                             <button
                                 onClick={() => {
                                     setIsTimeDropdownOpen(!isTimeDropdownOpen);
@@ -83,7 +100,7 @@ export default function LeaderboardPage() {
                         </div>
 
                         {/* Category Dropdown */}
-                        <div className="relative">
+                        <div className="relative" ref={categoryDropdownRef}>
                             <button
                                 onClick={() => {
                                     setIsCategoryDropdownOpen(!isCategoryDropdownOpen);
