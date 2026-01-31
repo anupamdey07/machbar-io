@@ -3,10 +3,16 @@
     "short_name": "machbar.io",
     "description": "The onramp from curiosity to your first hardware project. Discover and build doable smart hardware.",
     "start_url": "/",
+    "scope": "/",
     "display": "standalone",
-    "background_color": "#B2C9AD",
+    "background_color": "#F8F9FA",
     "theme_color": "#2D4A3E",
     "orientation": "portrait-primary",
+    "categories": [
+        "education",
+        "shopping",
+        "productivity"
+    ],
     "icons": [
         {
             "src": "/icon-192.png",
@@ -19,6 +25,52 @@
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "form_factor": "narrow"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Explore Products",
+            "short_name": "Explore",
+            "description": "Browse all smart hardware products",
+            "url": "/explore",
+            "icons": [
+                {
+                    "src": "/icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Community",
+            "short_name": "Community",
+            "description": "Join the maker community",
+            "url": "/community",
+            "icons": [
+                {
+                    "src": "/icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Leaderboard",
+            "short_name": "Leaderboard",
+            "description": "See trending products",
+            "url": "/leaderboard",
+            "icons": [
+                {
+                    "src": "/icon-192.png",
+                    "sizes": "192x192"
+                }
+            ]
         }
     ]
 }
