@@ -5,6 +5,9 @@
 I've successfully created the **AI Marketplace MVP** based on your PRD. Here's what's ready:
 
 ### 🏗 Project Structure
+
+### 🧠 Our Philosophy: Marketplace-first
+> "Buy, sell, and discover smart hardware designs and components — a marketplace built by makers, for makers."
 ```
 ai-marketplace/
 ├── 📄 Configuration Files

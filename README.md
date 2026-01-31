@@ -13,6 +13,11 @@ Come out of the era of staring at screens. Start creating, making, and connectin
 
 A next-generation, community-driven marketplace for AI-powered physical consumer products. This platform bridges the gap between passive technology consumption and active creation, empowering curious makers to build, share, and discover innovative gadgets—from programmable robots to 3D-printed assistants.
 
+### 🧠 Our Philosophy
+**Marketplace-first**  
+> "Buy, sell, and discover smart hardware designs and components — a marketplace built by makers, for makers."
+
+
 ## ✨ Key Features
 
 ### 🔮 Crystal Ball Navigation
