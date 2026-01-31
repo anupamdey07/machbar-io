@@ -1,0 +1,176 @@
+import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
+import { CategoryInfo } from '@/types';
+
+const categories: CategoryInfo[] = [
+    {
+        id: 'Programmable Robotics',
+        name: 'Programmable Robotics',
+        icon: '🤖',
+        description: 'Arduino, Raspberry Pi, Jetson bots',
+        slug: 'robotics',
+    },
+    {
+        id: 'Prompt-to-Product',
+        name: 'Prompt-to-Product',
+        icon: '🎨',
+        description: 'Describe it, AI makes it',
+        slug: 'prompt-to-product',
+    },
+    {
+        id: '3D Printed Innovations',
+        name: '3D Printed Innovations',
+        icon: '🖨️',
+        description: 'Physical creations',
+        slug: '3d-printed',
+    },
+    {
+        id: 'Assistant Boxes',
+        name: 'Assistant Boxes',
+        icon: '📦',
+        description: 'Voice assistants, home companions',
+        slug: 'assistants',
+    },
+    {
+        id: 'Kids Learning Tools',
+        name: 'Kids Learning Tools',
+        icon: '👶',
+        description: 'STEM, coding toys',
+        slug: 'kids-learning',
+    },
+    {
+        id: 'Voice Assistants',
+        name: 'Voice Assistants',
+        icon: '🎙️',
+        description: 'Smart speakers',
+        slug: 'voice',
+    },
+];
+
+export default function CategoryScroll() {
+    const navigate = useNavigate();
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    const scroll = (direction: 'left' | 'right') => {
+        if (scrollRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+            const scrollAmount = 300;
+            const maxScroll = scrollWidth - clientWidth;
+
+            let targetScroll;
+
+            if (direction === 'left') {
+                targetScroll = scrollLeft - scrollAmount;
+                // If we are at the very beginning, wrap around to the end
+                if (scrollLeft <= 5) {
+                    targetScroll = maxScroll;
+                }
+            } else {
+                targetScroll = scrollLeft + scrollAmount;
+                // If we are at the very end, wrap around to the beginning
+                if (scrollLeft >= maxScroll - 5) {
+                    targetScroll = 0;
+                }
+            }
+
+            scrollRef.current.scrollTo({
+                left: targetScroll,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    return (
+        <section className="py-24 bg-background-light/30 relative">
+            <div className="container-custom relative">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                    <div className="max-w-2xl">
+                        <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-primary">
+                            Discover Trending Topics
+                        </h2>
+                        <p className="text-charcoal/70 text-lg">
+                            Explore curated AI hardware categories. From robots to voice assistants,
+                            discover products vetted for traction and documentation.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Main Scroll Container with Overlay Arrows */}
+                <div className="relative group/scroll">
+                    {/* Left Arrow - Floating */}
+                    <button
+                        onClick={() => scroll('left')}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 z-20 w-16 h-16 rounded-full bg-white text-primary border-4 border-background-light shadow-soft flex items-center justify-center hover:bg-primary hover:text-white transition-all hover:scale-110 active:scale-95 hidden lg:flex"
+                        aria-label="Scroll Left"
+                    >
+                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+
+                    <div
+                        ref={scrollRef}
+                        className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory custom-scrollbar -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth"
+                    >
+                        {categories.map((category) => (
+                            <button
+                                key={category.id}
+                                onClick={() => navigate(`/explore/${encodeURIComponent(category.name)}`)}
+                                className="snap-start flex-shrink-0 w-[300px] group"
+                            >
+                                <div className="card h-full flex flex-col items-start text-left bg-white group-hover:border-primary transition-all group-hover:shadow-lg rounded-[32px] p-8">
+                                    <div className="w-20 h-20 rounded-3xl bg-secondary flex items-center justify-center text-5xl mb-8 group-hover:scale-110 transition-transform">
+                                        {category.icon}
+                                    </div>
+                                    <h3 className="font-heading font-bold text-2xl mb-3 text-primary">
+                                        {category.name}
+                                    </h3>
+                                    <p className="text-charcoal/60 text-sm leading-relaxed mb-8 flex-1">
+                                        {category.description}
+                                    </p>
+                                    <div className="flex items-center text-accent font-bold text-sm">
+                                        <span>Explore Items</span>
+                                        <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Right Arrow - Floating */}
+                    <button
+                        onClick={() => scroll('right')}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 z-20 w-16 h-16 rounded-full bg-white text-primary border-4 border-background-light shadow-soft flex items-center justify-center hover:bg-primary hover:text-white transition-all hover:scale-110 active:scale-95 hidden lg:flex"
+                        aria-label="Scroll Right"
+                    >
+                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+
+                {/* Mobile/Tablet Bottom Navigation Buttons */}
+                <div className="flex justify-center gap-6 mt-12 lg:hidden">
+                    <button
+                        onClick={() => scroll('left')}
+                        className="w-20 py-4 rounded-2xl bg-white border-2 border-background-light text-primary flex items-center justify-center hover:bg-secondary transition-colors shadow-sm"
+                    >
+                        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button
+                        onClick={() => scroll('right')}
+                        className="w-20 py-4 rounded-2xl bg-white border-2 border-background-light text-primary flex items-center justify-center hover:bg-secondary transition-colors shadow-sm"
+                    >
+                        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+    );
+}

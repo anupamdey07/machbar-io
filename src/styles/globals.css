@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-charcoal font-playful antialiased text-base leading-relaxed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-primary font-extrabold tracking-tight;
+  }
+}
+
+@layer components {
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-background-light;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-primary/20 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/30;
+  }
+
+  /* Glassmorphism effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20;
+  }
+
+  /* Page container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Button base styles */
+  .btn {
+    @apply px-10 py-5 rounded-full font-extrabold transition-all duration-300 inline-flex items-center justify-center gap-3 tracking-tight;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-secondary hover:bg-primary-dark active:scale-95;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent text-white hover:bg-accent-dark active:scale-95;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-primary text-primary hover:bg-primary hover:text-secondary active:scale-95;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-secondary rounded-[48px] shadow-soft border-2 border-background-light p-10 transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-2xl hover:-translate-y-2 cursor-pointer hover:border-accent/30;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center gap-2 px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest;
+  }
+
+  .badge-trust {
+    @apply badge bg-trust/10 text-trust;
+  }
+
+  .badge-member {
+    @apply badge bg-background-light text-primary;
+  }
+
+  .badge-contributor {
+    @apply badge bg-primary/10 text-primary;
+  }
+
+  .badge-maker {
+    @apply badge bg-accent/10 text-accent;
+  }
+}
+
+@layer utilities {
+
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  /* Smooth scrolling */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    display: flex;
+    width: fit-content;
+    animation: marquee 40s linear infinite;
+  }
+}
