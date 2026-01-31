@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { UserBadge } from '@/types';
 import CategoryScroll from '@/components/navigation/CategoryScroll';
 import Badge from '@/components/common/Badge';
 import TrustIndicator from '@/components/common/TrustIndicator';
@@ -264,47 +263,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Learn from Makers Like You */}
-            <section className="py-20 bg-white">
-                <div className="container-custom">
-                    <div className="text-center mb-16">
-                        <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 text-primary">
-                            Learn from Makers Like You
-                        </h2>
-                        <p className="text-charcoal/70 text-lg max-w-2xl mx-auto">
-                            Join a growing community of creators moving from screens to physical things.
-                        </p>
-                    </div>
 
-                    <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                        {[
-                            { badge: 'Member', label: 'Tinkering', icon: '👤', color: 'bg-background' },
-                            { badge: 'Contributor', label: 'Documenting', icon: '🛠️', color: 'bg-secondary' },
-                            { badge: 'Maker', label: 'Creating', icon: '🚀', color: 'bg-accent/10' },
-                        ].map((item, index) => (
-                            <motion.div
-                                key={item.badge}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: index * 0.2 }}
-                                className="bg-white p-8 rounded-3xl border border-background-light shadow-soft text-center group"
-                            >
-                                <div className={`w-20 h-20 ${item.color} rounded-full mx-auto mb-6 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform`}>
-                                    {item.icon}
-                                </div>
-                                <h3 className="font-heading font-bold text-xl mb-2 text-primary">
-                                    New {item.badge}
-                                </h3>
-                                <Badge type={item.badge as UserBadge} className="mb-4 justify-center" />
-                                <p className="text-sm text-charcoal/60 leading-relaxed">
-                                    Recently joined to start {item.label.toLowerCase()} their first physical project.
-                                </p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
             {/* Why We Built This */}
             <section className="py-24 bg-primary text-secondary overflow-hidden relative">
