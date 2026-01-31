@@ -109,7 +109,7 @@ const initialProducts: Product[] = [
         subCategory: 'Consumer 3D Printers',
         description: 'The ultimate beginner-friendly 3D printer with AI active flow control and automatic bed leveling. Features spaghetti detection and remote monitoring via camera. Perfect for high-speed, reliable printing.',
         price: 249,
-        images: ['https://cdn1.bambulab.com/common/a1-mini/a1-mini-primary.png'],
+        images: ['https://portal.bblmw.com/a1/video/print-8bbbda52c0ea5/0.jpg'],
         creator: {
             id: 'bambulab',
             name: 'Bambu Lab',
@@ -134,7 +134,7 @@ const initialProducts: Product[] = [
         subCategory: 'Consumer 3D Printers',
         description: 'Enclosed AI-powered 3D printer with an integrated AI camera for real-time monitoring and failure detection. Optimized for carbon fiber and other technical filaments. 600mm/s top speed.',
         price: 499,
-        images: ['https://www.creality.com/cdn/shop/files/K1C-1.png'],
+        images: ['https://www.creality3dofficial.eu/files/html/20240516/k1-c-3d-printer-SAM.jpg'],
         creator: {
             id: 'creality',
             name: 'Creality',
@@ -152,39 +152,15 @@ const initialProducts: Product[] = [
         skill_level: 'Intermediate',
         external_link: 'https://www.creality.com/products/creality-k1c-3d-printer'
     },
-    {
-        id: 'real-6',
-        name: 'Vrk.ai Prompt-to-Toy',
-        category: 'Prompt-to-Product',
-        subCategory: 'Dropship',
-        description: 'Describe any character or toy, and get it delivered as a high-quality 3D printed physical object. Powered by generative AI for 3D modeling and custom shipping. From imagination to your doorstep.',
-        price: 45,
-        images: ['https://vrk.ai/static/media/hero-image.b8f8d9c1.png'],
-        creator: {
-            id: 'vrkai',
-            name: 'Vrk.ai',
-            username: 'vrk_ai',
-            bio: 'Prompt to Physical Reality.',
-            badge: 'Maker',
-            credibility_score: 90,
-            products: [], contributions: [], posts: []
-        },
-        status: 'Available',
-        upvotes: 167,
-        privacy_verified: true,
-        launch_date: '2024-12-01',
-        slug: 'vrk-prompt-to-toy',
-        skill_level: 'Beginner',
-        external_link: 'https://vrk.ai/'
-    },
+
     {
         id: 'real-7',
-        name: 'AI-Designed Lattice Bike Saddle',
+        name: 'Vento Argo R1 Adaptive',
         category: '3D Printed Innovations',
         subCategory: '3D Printed Products',
-        description: 'Highly ergonomic bike saddle featuring AI-optimized internal lattice structures. Impossible to manufacture without specialized 3D printing and generative design. Provides zonal pressure relief and ultimate comfort.',
-        price: 180,
-        images: ['https://i.all3dp.com/cdn-cgi/image/fit=cover,w=1284,h=722,gravity=0.5x0.5,format=auto/wp-content/uploads/2021/05/19172037/the-fizik-antares-versus-evo-00-adaptive-saddle-is-3d-fizik-210519.jpg'],
+        description: '3D-printed short-nosed racing saddle with a carbon-reinforced nylon shell and highly responsive zonal cushioning. Developed using Carbon® Digital Light Synthesis™ technology for ultimate pressure relief.',
+        price: 299,
+        images: ['https://www.fizik.com/cdn/shop/files/fizik-vento-argo-adaptive-r1-2-road-racing-3d-printed-padding-large-size_1.jpg?v=1751293585'],
         creator: {
             id: 'fizik',
             name: 'fizik',
@@ -199,7 +175,8 @@ const initialProducts: Product[] = [
         privacy_verified: true,
         launch_date: '2024-03-20',
         slug: 'ai-lattice-saddle',
-        skill_level: 'Advanced'
+        skill_level: 'Advanced',
+        external_link: 'https://www.fizik.com/en-de/products/saddles-vento-argo-r1-adaptive-black-vargor1aa0'
     },
     {
         id: 'real-8',
