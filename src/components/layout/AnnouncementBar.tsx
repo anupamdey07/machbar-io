@@ -1,11 +1,11 @@
 const announcements: string[] = [
-    "🤖 NEW: Reachy mini by Pollen Robotics now live!",
+    "🤖 NEW: Reachy Mini by Pollen Robotics now live!",
     "🖨️ AI-powered Sticker Box by Hapiko is trending!",
-    "🚀 machbar.io: Realizing doable smart hardware.",
+    "🚀 machbar.io: Smart Hardware, Made Possible.",
     "🛠️ Join the community of 1,200+ makers.",
-    "🤖 NEW: Reachy mini by Pollen Robotics now live!",
+    "🤖 NEW: Reachy Mini by Pollen Robotics now live!",
     "🖨️ AI-powered Sticker Box by Hapiko is trending!",
-    "🚀 machbar.io: Realizing doable smart hardware.",
+    "🚀 machbar.io: Smart Hardware, Made Possible.",
     "🛠️ Join the community of 1,200+ makers.",
 ];
 
