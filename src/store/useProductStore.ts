@@ -191,6 +191,7 @@ const initialProducts: Product[] = [
             id: 'cloudfactory',
             name: 'Cloud Factory',
             username: 'cloud_factory',
+            website: 'https://www.cloudfactory.jewelry/',
             badge: 'Maker',
             credibility_score: 93,
             products: [], contributions: [], posts: []
