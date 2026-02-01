@@ -1,4 +1,4 @@
-# AI Marketplace
+# machbar.tech
 
 **AI-Powered Consumer Products Community Marketplace**
 
@@ -18,7 +18,7 @@ A next-generation, community-driven marketplace for AI-powered physical consumer
 > "Buy, sell, and discover smart hardware designs and components — a marketplace built by makers, for makers."
 
 **Problem-led / pain point**
-> "Building smart hardware is too hard, too expensive, and too lonely. machbar.io brings together the tools, talent, and community to make it doable."
+> "Building smart hardware is too hard, too expensive, and too lonely. machbar.tech brings together the tools, talent, and community to make it doable."
 
 
 ## ✨ Key Features
@@ -100,7 +100,7 @@ npm run lint     # Run ESLint
 ## 📁 Project Structure
 
 ```
-ai-marketplace/
+machbar-io/
 ├── src/
 │   ├── components/
 │   │   ├── layout/          # Header, Footer, Layout
@@ -170,6 +170,6 @@ Design references:
 
 ---
 
-**Built with ❤️ by the AI Marketplace community**
+**Built with ❤️ by the machbar.tech community**
 
 *Come out of the era of staring at screens. Start creating!*

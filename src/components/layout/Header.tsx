@@ -111,12 +111,12 @@ export default function Header() {
                     {/* Logo + Primary Nav */}
                     <div className="flex items-center gap-10">
                         <Link to="/" className="flex items-start gap-4 group">
-                            <div className="text-5xl group-hover:scale-110 transition-transform h-10 flex items-center shrink-0">
-                                🤖
+                            <div className="group-hover:scale-110 transition-transform h-10 flex items-center shrink-0">
+                                <img src="/images/reachy-mini.png" alt="machbar.tech logo" className="h-12 w-auto object-contain" />
                             </div>
                             <div className="flex flex-col">
                                 <span className="font-heading font-black text-3xl text-primary leading-[1.2] lowercase tracking-tighter">
-                                    machbar<span className="text-[0.5em] tracking-wide ml-0.5 align-baseline">.io</span>
+                                    machbar<span className="text-[0.5em] tracking-wide ml-0.5 align-baseline">.tech</span>
                                 </span>
                                 <span className="text-[9px] font-mono text-trust-dark font-bold tracking-[0.2em] animate-pulse opacity-40 uppercase -mt-1 ml-0.5">
                                     ... launching soon
