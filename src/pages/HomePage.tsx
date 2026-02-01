@@ -63,9 +63,9 @@ export default function HomePage() {
                             >
                                 <span className="font-black text-primary">smart consumer hardware products</span>,
                                 <br />
-                                by the <span className="text-accent font-black">next-generation</span>
+                                by <span className="text-accent font-black">new-generation</span>
                                 <br />
-                                of creators, <span className="text-primary/70">ai-powered coders</span>, <span className="font-black text-primary">innovators.</span>
+                                makers, <span className="text-primary/70">ai-powered coders</span>, <span className="font-black text-primary">innovators.</span>
                             </motion.h1>
 
                             <motion.p
