@@ -1,13 +1,44 @@
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useProductStore } from '@/store/useProductStore';
 import { Link } from 'react-router-dom';
 import Badge from '@/components/common/Badge';
 
 export default function CommunityPage() {
-    const { posts } = useProductStore();
+    const { products, posts, isLoading } = useProductStore();
 
-    // Sort by timestamp descending
-    const sortedPosts = [...posts].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    // Create a unified feed of product launches and community posts
+    const unifiedFeed = useMemo(() => {
+        // Transform products into a "post" format
+        const productlaunches = products.map(product => ({
+            id: `launch-${product.id}`,
+            author: product.creator,
+            content: product.description,
+            images: product.images[0] === '📦' ? [] : product.images,
+            timestamp: product.launch_date || new Date().toISOString(),
+            likes: product.upvotes,
+            replies: 0,
+            hashtags: [product.category.toLowerCase().replace(/\s+/g, '')],
+            product: product,
+            isLaunch: true
+        }));
+
+        // Combine with standalone posts
+        const combined = [
+            ...productlaunches,
+            ...posts.map(post => ({
+                ...post,
+                isLaunch: false
+            }))
+        ];
+
+        // Sort by timestamp descending
+        return combined.sort((a, b) => {
+            const dateA = new Date(a.timestamp).getTime();
+            const dateB = new Date(b.timestamp).getTime();
+            return dateB - dateA;
+        });
+    }, [products, posts]);
 
     return (
         <div className="bg-background min-h-screen pt-24 pb-20">
@@ -22,8 +53,13 @@ export default function CommunityPage() {
                 </div>
 
                 <div className="space-y-8">
-                    {sortedPosts.length > 0 ? (
-                        sortedPosts.map((post, index) => (
+                    {isLoading && unifiedFeed.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-20">
+                            <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mb-4"></div>
+                            <p className="text-charcoal/50 font-medium">Loading community updates...</p>
+                        </div>
+                    ) : unifiedFeed.length > 0 ? (
+                        unifiedFeed.map((post: any, index: number) => (
                             <motion.div
                                 key={post.id}
                                 initial={{ opacity: 0, y: 20 }}
@@ -34,12 +70,12 @@ export default function CommunityPage() {
                                 {/* Header */}
                                 <div className="p-4 flex items-center gap-3">
                                     <Link to={`/profile/${post.author.id}`} className="block relative group">
-                                        <div className="w-10 h-10 rounded-full overflow-hidden border border-background-light">
+                                        <div className="w-10 h-10 rounded-full overflow-hidden border border-background-light bg-secondary">
                                             {post.author.avatar ? (
                                                 <img src={post.author.avatar} alt={post.author.name} className="w-full h-full object-cover" />
                                             ) : (
-                                                <div className="w-full h-full bg-secondary flex items-center justify-center text-primary font-bold">
-                                                    {post.author.name.charAt(0)}
+                                                <div className="w-full h-full flex items-center justify-center text-primary font-bold">
+                                                    {(post.author.name || 'A').charAt(0)}
                                                 </div>
                                             )}
                                         </div>
@@ -58,24 +94,31 @@ export default function CommunityPage() {
                                     <div className="ml-auto">
                                         <button className="text-charcoal/30 hover:text-primary transition-colors">
                                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
                                             </svg>
                                         </button>
                                     </div>
                                 </div>
 
-                                {/* Link to Product if present */}
-                                {post.product && (
-                                    <div className="px-4 pb-2">
-                                        <Link
-                                            to={`/products/${post.product.slug}`}
-                                            className="inline-flex items-center gap-1.5 text-xs font-medium text-accent hover:underline bg-accent/5 px-2 py-1 rounded-full"
-                                        >
-                                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                            </svg>
-                                            {post.product.name}
-                                        </Link>
+                                {/* Product Badge / Launch Badge */}
+                                {(post.product || post.isLaunch) && (
+                                    <div className="px-4 pb-2 flex items-center gap-2">
+                                        {post.isLaunch && (
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-white bg-accent px-2 py-0.5 rounded-sm">
+                                                New Launch
+                                            </span>
+                                        )}
+                                        {post.product && (
+                                            <Link
+                                                to={`/products/${post.product.slug}`}
+                                                className="inline-flex items-center gap-1.5 text-xs font-medium text-accent hover:underline bg-accent/5 px-2 py-1 rounded-full"
+                                            >
+                                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                                </svg>
+                                                {post.product.name}
+                                            </Link>
+                                        )}
                                     </div>
                                 )}
 
@@ -114,14 +157,14 @@ export default function CommunityPage() {
                                     <div className="font-bold text-sm mb-2">{post.likes} likes</div>
                                     <div className="text-sm leading-relaxed">
                                         <Link to={`/profile/${post.author.id}`} className="font-bold mr-2 hover:underline">
-                                            {post.author.username}
+                                            {post.author.username || 'anonymous'}
                                         </Link>
                                         <span className="text-charcoal/80">
                                             {post.content}
                                         </span>
                                     </div>
                                     <div className="mt-2 flex flex-wrap gap-2">
-                                        {post.hashtags.map((tag, i) => (
+                                        {post.hashtags.map((tag: string, i: number) => (
                                             <span key={i} className="text-xs text-accent font-medium">#{tag}</span>
                                         ))}
                                     </div>
