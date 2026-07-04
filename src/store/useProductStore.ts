@@ -1,7 +1,6 @@
 import { create } from 'zustand';
-import { fetchAirtableData, upvoteAirtableProduct } from '@/services/airtable';
 import { CommunityPost, Product } from '@/types';
-import { initialProducts } from '@/data/mockData';
+import { productsData } from '@/data/products';
 
 interface ProductStore {
     products: Product[];
@@ -14,8 +13,8 @@ interface ProductStore {
 
 // Helper to sort products: Real images first, then by upvotes
 const sortProducts = (a: Product, b: Product) => {
-    const aIsPlaceholder = !a.images || a.images.length === 0 || a.images[0] === '📦';
-    const bIsPlaceholder = !b.images || b.images.length === 0 || b.images[0] === '📦';
+    const aIsPlaceholder = !a.images || a.images.length === 0;
+    const bIsPlaceholder = !b.images || b.images.length === 0;
 
     if (!aIsPlaceholder && bIsPlaceholder) return -1;
     if (aIsPlaceholder && !bIsPlaceholder) return 1;
@@ -23,34 +22,27 @@ const sortProducts = (a: Product, b: Product) => {
     return b.upvotes - a.upvotes;
 };
 
+// Extract posts from product creators
+const extractPosts = (products: Product[]): CommunityPost[] => {
+    const posts: CommunityPost[] = [];
+    for (const p of products) {
+        if (p.creator?.posts) {
+            posts.push(...p.creator.posts);
+        }
+    }
+    return posts;
+};
+
 export const useProductStore = create<ProductStore>((set, get) => ({
-    // Initialize with mock data so the app isn't empty on first load
-    products: initialProducts,
-    posts: initialProducts.flatMap(p => p.creator.posts || []),
+    // Initialize with products from SQLite-synced JSON
+    products: productsData,
+    posts: extractPosts(productsData),
     isLoading: false,
     error: null,
     fetchProducts: async () => {
-        set({ isLoading: true });
-        try {
-            const { products, posts } = await fetchAirtableData();
-
-            // Only update if we actually got data from Airtable
-            if (products.length > 0 || posts.length > 0) {
-                console.log(`🟢 Successfully loaded ${products.length} products and ${posts.length} posts from Airtable`);
-                set({
-                    products: products.sort(sortProducts),
-                    posts: posts,
-                    isLoading: false,
-                    error: null
-                });
-            } else {
-                console.warn('📡 Airtable returned 0 records. Keeping mock data.');
-                set({ isLoading: false });
-            }
-        } catch (error) {
-            console.error('Failed to fetch from Airtable, keeping mock data:', error);
-            set({ error: 'Failed to fetch from Airtable', isLoading: false });
-        }
+        // Products are loaded synchronously from JSON at import time.
+        // This method is kept for future API integration.
+        set({ isLoading: false });
     },
     upvoteProduct: async (id) => {
         const product = get().products.find(p => p.id === id);
@@ -63,13 +55,8 @@ export const useProductStore = create<ProductStore>((set, get) => ({
                 .sort(sortProducts),
         }));
 
-        // Persist to Airtable if it's an Airtable record
-        if (id.startsWith('rec')) {
-            try {
-                await upvoteAirtableProduct(id, product.upvotes);
-            } catch (error) {
-                console.error('Failed to persist upvote to Airtable:', error);
-            }
-        }
+        // Note: Upvotes are local-only for now.
+        // Future: sync back to SQLite when online backend is available.
+        console.log(`👍 Upvoted: ${product.name} (${product.upvotes + 1})`);
     },
 }));
