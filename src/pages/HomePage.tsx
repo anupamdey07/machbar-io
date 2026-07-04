@@ -51,7 +51,7 @@ export default function HomePage() {
                             className="text-center lg:text-left relative z-20"
                         >
                             <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
-                                <Badge type="new" label="Beta V3.0" />
+                                <Badge type="new" label="Early Access" />
                                 <span className="text-primary/60 text-sm font-bold tracking-widest uppercase">The Community Marketplace</span>
                             </div>
 
